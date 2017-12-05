@@ -1,6 +1,6 @@
 {
   "name": "@waves/event-sender",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "An interface for sending analytics events from Waves JS applications",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,8 +14,8 @@
     "dist"
   ],
   "scripts": {
-		"prepare": "tsc --outDir dist --declaration && yarn browserify",
-		"browserify": "browserify ./dist/index.js -s event-sender -o ./dist/umd.js"
+    "prepare": "tsc --outDir dist --declaration && yarn browserify",
+    "browserify": "browserify ./dist/index.js -s event-sender -o ./dist/umd.js"
   },
   "devDependencies": {
     "browserify": "^14.5.0",
