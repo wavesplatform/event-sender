@@ -14,9 +14,11 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "tsc --outDir dist --declaration"
+		"prepare": "tsc --outDir dist --declaration && yarn browserify",
+		"browserify": "browserify ./dist/index.js -s event-sender -o ./dist/umd.js"
   },
   "devDependencies": {
+    "browserify": "^14.5.0",
     "typescript": "^2.5.3"
   }
 }
