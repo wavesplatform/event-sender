@@ -1,0 +1,17 @@
+{
+	"exclude": [
+		"node_modules",
+		"dist"
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "es5",
+		"module": "commonjs",
+		"experimentalDecorators": true,
+		"sourceMap": false,
+		"lib": [
+			"es2015",
+			"es2016"
+		]
+	}
+}
