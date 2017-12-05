@@ -1,11 +1,11 @@
 {
   "name": "@waves/event-sender",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An interface for sending analytics events from Waves JS applications",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
-	"license": "Apache-2.0",
-	"private":false,
+  "license": "Apache-2.0",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/wavesplatform/event-sender.git"
