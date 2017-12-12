@@ -2,6 +2,7 @@ declare const window, document, console;
 
 class EventSender {
   private static _instance: EventSender;
+  private internalQueue: any[][]; // push to internal queue when sender is inactive
 
   /**
 	 * EventSender
@@ -35,8 +36,6 @@ class EventSender {
   /**
    * Activate event tracking
    * Upon user agreement to send statistics
-   * @param {string} newUrl ad
-   * @param {string} referrer
    * @return {EventSender}
    */
   public activate = (): EventSender => {
@@ -44,6 +43,15 @@ class EventSender {
 
     this.active = true;
     this._activatePiwik();
+    return this;
+	};
+	
+	/**
+   * Deactivate event tracking
+   * @return {EventSender}
+   */
+  public deactivate = (): EventSender => {
+		this.active = false;
     return this;
   };
 
@@ -60,7 +68,7 @@ class EventSender {
     action: string,
     label?: string,
     value?: number
-  ): EventSender =>
+  ): EventSender => 
     this._push('_paq', ['trackEvent', category, action, label, value]);
 
   /**
@@ -86,7 +94,11 @@ class EventSender {
     // insert code if not already there
     if (document.getElementById('piwik')) return;
 
-    const URL = '//wavesplatform.innocraft.cloud/';
+		const URL = '//wavesplatform.innocraft.cloud/';
+		
+		// push internal queue into piwik
+		this._pushAll('paq', this.internalQueue);
+		this.internalQueue = [];
 
     this._pushAll('_paq', [
       // ['setDocumentTitle', document.domain + '/' + document.title],
@@ -110,14 +122,22 @@ class EventSender {
   }
 
   private _pushAll(queueName: string, data: any[][]): EventSender {
-    window[queueName] = window[queueName] || [];
-    data.forEach(obj => window[queueName].push(obj));
+		if (this.active) {
+			window[queueName] = window[queueName] || [];
+			data.forEach(obj => window[queueName].push(obj));
+		} else {
+			this.internalQueue = this.internalQueue.concat(data);
+		}
     return this;
   }
 
   private _push(queueName: string, data: any[]): EventSender {
-    window[queueName] = window[queueName] || [];
-    window[queueName].push(data);
+		if (this.active) {
+			window[queueName] = window[queueName] || [];
+			window[queueName].push(data);
+		} else {
+			this.internalQueue.push(data);
+		}
     return this;
   }
 }
