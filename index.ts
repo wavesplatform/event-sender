@@ -2,7 +2,7 @@ declare const window, document, console;
 
 class EventSender {
   private static _instance: EventSender;
-  private internalQueue: any[][]; // push to internal queue when sender is inactive
+  private internalQueue: any[][] = []; // push to internal queue when sender is inactive
 
   /**
 	 * EventSender
