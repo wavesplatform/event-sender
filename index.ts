@@ -97,13 +97,13 @@ class EventSender {
 		const URL = '//wavesplatform.innocraft.cloud/';
 
     this._pushAll('_paq', [
-      // ['setDocumentTitle', document.domain + '/' + document.title],
-      // ['setCookieDomain', '*.wavesplatform.com'],
-      // ['setDomains', ['*.wavesplatform.com']],
+      ['setDocumentTitle', document.domain + '/' + document.title],
+      ['setCookieDomain', '*.wavesplatform.com'],
+      ['setDomains', ['*.wavesplatform.com']],
       ['trackPageView'],
       ['enableLinkTracking'],
       ['setTrackerUrl', URL + 'piwik.php'],
-      ['setSiteId', '3'],
+      ['setSiteId', '1'],
 		]);
 		
 		// push internal queue contents into piwik
