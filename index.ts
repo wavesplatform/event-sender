@@ -95,10 +95,6 @@ class EventSender {
     if (document.getElementById('piwik')) return;
 
 		const URL = '//wavesplatform.innocraft.cloud/';
-		
-		// push internal queue into piwik
-		this._pushAll('paq', this.internalQueue);
-		this.internalQueue = [];
 
     this._pushAll('_paq', [
       // ['setDocumentTitle', document.domain + '/' + document.title],
@@ -108,7 +104,11 @@ class EventSender {
       ['enableLinkTracking'],
       ['setTrackerUrl', URL + 'piwik.php'],
       ['setSiteId', '3'],
-    ]);
+		]);
+		
+		// push internal queue contents into piwik
+		this._pushAll('_paq', this.internalQueue);
+		this.internalQueue = [];
 
     const g = document.createElement('script');
     const s = document.getElementsByTagName('script')[0];
