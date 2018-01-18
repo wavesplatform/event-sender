@@ -2,8 +2,11 @@ local/
 
 .idea/
 .vscode/
+.history
+
 node_modules/
 .DS_Store/
+
 dist/
 bld/
 

@@ -83,11 +83,10 @@ class EventSender {
     this._pushAll('_paq', [
       ['setReferrerUrl', referrer],
       ['setCustomUrl', newUrl],
-      // ['setDocumentTitle', title],
+      ['setDocumentTitle', document.domain + '/' + document.title],
       ['deleteCustomVariables', 'page'],
       ['setGenerationTimeMs', 0],
-      ['trackPageView'],
-      ['enableLinkTracking'],
+      ['trackPageView']
     ]);
 
   private _activatePiwik() {
