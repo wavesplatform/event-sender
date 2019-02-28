@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sandbox</title>
+
+    <script>
+
+        var hash = {
+            '@waves/waves-browser-bus': 'bus'
+        };
+
+        window.require = window.require || function (name) {
+            if (hash.hasOwnProperty(name)) {
+                return window[hash[name]];
+            }
+            throw new Error('Can\'t find module with name ' + name);
+        };
+
+    </script>
+    <script src="./dist/browser-bus.min.js"></script>
+    <script src="./dist/analytics-iframe.js"></script>
+</head>
+<body>
+
+</body>
+</html>

@@ -14,11 +14,17 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "tsc --outDir dist --declaration && yarn browserify",
-    "browserify": "browserify ./dist/index.js -s event-sender -o ./dist/umd.js"
+    "clean": "rm -rf dist",
+    "copy": "cp node_modules/@waves/waves-browser-bus/dist/browser-bus.min.js dist/",
+    "browserify": "browserify -u @waves/waves-browser-bus dist/analytics-iframe.js -o dist/analytics-iframe.js && browserify -u @waves/waves-browser-bus dist/Analytics.js -s analytics -o dist/analytics.js",
+    "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled",
+    "remove-compiled": "rm dist/Analytics.js && rm -rf dist/utils"
   },
   "devDependencies": {
     "browserify": "^14.5.0",
-    "typescript": "^2.5.3"
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@waves/waves-browser-bus": "^0.1.4"
   }
 }
