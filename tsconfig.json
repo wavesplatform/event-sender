@@ -5,6 +5,7 @@
     "preserveConstEnums": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
+    "declaration": true,
     "target": "es5",
     "outDir": "dist"
   },

@@ -3,7 +3,7 @@
   "version": "0.4.4",
   "description": "An interface for sending analytics events from Waves JS applications",
   "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/Analytics.d.ts",
   "license": "Apache-2.0",
   "private": false,
   "repository": {

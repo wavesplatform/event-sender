@@ -7,6 +7,9 @@ class Analytics {
     private events: Array<AnalyticsTypes.IEventData> = [];
     private apiList: Array<AnalyticsTypes.IApiData> = [];
     private createBusPromise: Promise<Bus<AnalyticsTypes.IEvents>> | undefined = void 0;
+    private defaultParams: Record<string, any> = Object.create(null);
+    private iframeUrl: string | undefined;
+    private isActive: boolean = false;
 
 
     constructor() {
@@ -16,12 +19,25 @@ class Analytics {
         Analytics.instance = this;
     }
 
-    public activate(url: string): void {
+    public init(iframeUrl: string, defaultParams?: Record<string, any>): void {
+        this.defaultParams = defaultParams || this.defaultParams;
+        this.iframeUrl = iframeUrl;
+    }
+
+    public deactivate(): void {
+        this.isActive = false;
+    }
+
+    public activate(): void {
+        if (!this.iframeUrl) {
+            throw new Error(`Initialize analytics with method "init"!`);
+        }
+
         if (this.createBusPromise) {
             return void 0;
         }
 
-        this.createBusPromise = this._createBus(url);
+        this.createBusPromise = this._createBus(this.iframeUrl);
         this.createBusPromise.then(bus => {
             this.apiList.forEach(adapter => {
                 bus.dispatchEvent('add-adapter', adapter);
@@ -31,6 +47,7 @@ class Analytics {
                 bus.dispatchEvent('event', event);
             });
             this.events = [];
+            this.isActive = true;
         });
     }
 
@@ -43,10 +60,11 @@ class Analytics {
     }
 
     public send(data: AnalyticsTypes.IEventData): void {
-        if (this.createBusPromise) {
-            this.createBusPromise.then(Analytics.dispatch('event', data));
+        const message = { ...data, params: { ...data.params || {}, ...this.defaultParams } };
+        if (this.isActive && this.createBusPromise) {
+            this.createBusPromise.then(Analytics.dispatch('event', message));
         } else {
-            this.events.push(data);
+            this.events.push(message);
         }
     }
 
