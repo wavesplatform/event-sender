@@ -11,7 +11,8 @@
     "url": "https://github.com/wavesplatform/event-sender.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "analytics-sandbox.html"
   ],
   "scripts": {
     "clean": "rm -rf dist",
