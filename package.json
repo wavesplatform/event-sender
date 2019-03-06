@@ -19,6 +19,8 @@
     "copy": "cp node_modules/@waves/waves-browser-bus/dist/browser-bus.min.js dist/",
     "browserify": "browserify -u @waves/waves-browser-bus dist/analytics-iframe.js -o dist/analytics-iframe.js && browserify -u @waves/waves-browser-bus dist/Analytics.js -s analytics -o dist/analytics.js",
     "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled",
+    "postversion": "npm publish",
+    "postpublish": "git push",
     "remove-compiled": "rm dist/Analytics.js && rm -rf dist/utils"
   },
   "devDependencies": {
