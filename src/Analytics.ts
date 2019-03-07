@@ -43,8 +43,8 @@ class Analytics {
                 bus.dispatchEvent('add-adapter', adapter);
             });
             this.apiList = [];
-            this.events.forEach(event => {
-                bus.dispatchEvent('event', event);
+            Analytics.asyncForEach(this.events, event => {
+                bus.dispatchEvent('event', { ...event, params: { ...event.params || {}, ...this.defaultParams } });
             });
             this.events = [];
             this.isActive = true;
@@ -60,11 +60,13 @@ class Analytics {
     }
 
     public send(data: AnalyticsTypes.IEventData): void {
-        const message = { ...data, params: { ...data.params || {}, ...this.defaultParams } };
         if (this.isActive && this.createBusPromise) {
-            this.createBusPromise.then(Analytics.dispatch('event', message));
+            this.createBusPromise.then(Analytics.dispatch('event', {
+                ...data,
+                params: { ...data.params || {}, ...this.defaultParams }
+            }));
         } else {
-            this.events.push(message);
+            this.events.push(data);
         }
     }
 
@@ -93,7 +95,6 @@ class Analytics {
         return promise;
     }
 
-
     private static addStyles(element: HTMLElement, styles: Partial<TCSSStyleDeclarationProps>): void {
         this.entries(styles).forEach(([name, value]) => {
             if (value) {
@@ -104,6 +105,20 @@ class Analytics {
 
     private static entries<T extends Record<keyof any, any>>(item: T): Array<[keyof T, T[keyof T]]> {
         return Object.entries(item) as Array<[keyof T, T[keyof T]]>;
+    }
+
+    private static asyncForEach<T>(list: Array<T>, cb: (item: T) => void): void {
+        const clone = list.slice().reverse();
+
+        const loop = (item: T | undefined): void => {
+            if (!item) {
+                return void 0;
+            }
+            cb(item);
+            setTimeout(() => loop(clone.pop()), 100);
+        };
+
+        loop(clone.pop());
     }
 
     private static instance: Analytics | undefined;
