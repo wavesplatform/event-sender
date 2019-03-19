@@ -12,6 +12,7 @@
   },
   "files": [
     "dist",
+    "interface.d.ts",
     "analytics-sandbox.html"
   ],
   "scripts": {
