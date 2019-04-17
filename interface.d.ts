@@ -4,6 +4,7 @@ declare namespace AnalyticsTypes {
 
     interface IEvents {
         event: IEventData;
+        'has-referrer': string;
         'add-adapter': IApiData;
     }
 

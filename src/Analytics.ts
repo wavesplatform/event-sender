@@ -39,6 +39,7 @@ class Analytics {
 
         this.createBusPromise = this._createBus(this.iframeUrl);
         this.createBusPromise.then(bus => {
+            bus.dispatchEvent('has-referrer', document.referrer);
             this.apiList.forEach(adapter => {
                 bus.dispatchEvent('add-adapter', adapter);
             });
