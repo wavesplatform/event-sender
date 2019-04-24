@@ -22,7 +22,7 @@
     "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled",
     "postversion": "npm publish",
     "postpublish": "git push",
-    "remove-compiled": "rm -rf dist/utils"
+    "remove-compiled": "rm -rf dist/utils && rm dist/Analytics.js"
   },
   "devDependencies": {
     "browserify": "^14.5.0",
