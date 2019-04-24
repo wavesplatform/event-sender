@@ -1,17 +1,16 @@
 {
-	"exclude": [
-		"node_modules",
-		"dist"
-	],
-	"compilerOptions": {
-		"baseUrl": ".",
-		"target": "es5",
-		"module": "commonjs",
-		"experimentalDecorators": true,
-		"sourceMap": false,
-		"lib": [
-			"es2015",
-			"es2016"
-		]
-	}
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "preserveConstEnums": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "declaration": true,
+    "target": "es5",
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
