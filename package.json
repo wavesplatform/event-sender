@@ -1,9 +1,9 @@
 {
   "name": "@waves/event-sender",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "description": "An interface for sending analytics events from Waves JS applications",
-  "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/analytics.js",
+  "types": "./dist/Analytics.d.ts",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
@@ -11,14 +11,24 @@
     "url": "https://github.com/wavesplatform/event-sender.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "interface.d.ts",
+    "analytics-sandbox.html"
   ],
   "scripts": {
-    "prepare": "tsc --outDir dist --declaration && yarn browserify",
-    "browserify": "browserify ./dist/index.js -s event-sender -o ./dist/umd.js"
+    "clean": "rm -rf dist",
+    "copy": "cp node_modules/@waves/waves-browser-bus/dist/browser-bus.min.js dist/",
+    "browserify": "browserify -u @waves/waves-browser-bus dist/analytics-iframe.js -o dist/analytics-iframe.js && browserify -u @waves/waves-browser-bus dist/Analytics.js -s analytics -o dist/analytics.js",
+    "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled",
+    "postversion": "npm publish",
+    "postpublish": "git push",
+    "remove-compiled": "rm -rf dist/utils && rm dist/Analytics.js"
   },
   "devDependencies": {
     "browserify": "^14.5.0",
-    "typescript": "^2.5.3"
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@waves/waves-browser-bus": "^0.1.4"
   }
 }
