@@ -9,8 +9,8 @@ WindowAdapter.createSimpleWindowAdapter().then(adapter => {
     const adapters: Array<AnalyticsTypes.IAdapter> = [];
     let promise: Promise<any> | null = null;
 
-    bus.on('has-referrer', referrer => {
-        Object.defineProperty(document, 'referrer', {
+    bus.on('has-referrer', (referrer: string) => {
+        Object.defineProperty(Document.prototype, 'referrer', {
             get: () => referrer
         });
     });
