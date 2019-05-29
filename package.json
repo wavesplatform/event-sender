@@ -1,6 +1,6 @@
 {
   "name": "@waves/event-sender",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "description": "An interface for sending analytics events from Waves JS applications",
   "main": "dist/analytics.js",
   "types": "./dist/Analytics.d.ts",
