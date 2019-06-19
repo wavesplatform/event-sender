@@ -1,6 +1,6 @@
 {
   "name": "@waves/event-sender",
-  "version": "0.5.2",
+  "version": "1.1.0",
   "description": "An interface for sending analytics events from Waves JS applications",
   "main": "dist/analytics.js",
   "types": "./dist/Analytics.d.ts",
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist",
     "copy": "cp node_modules/@waves/waves-browser-bus/dist/browser-bus.min.js dist/",
     "browserify": "browserify -u @waves/waves-browser-bus dist/analytics-iframe.js -o dist/analytics-iframe.js && browserify -u @waves/waves-browser-bus dist/Analytics.js -s analytics -o dist/analytics.js",
-    "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled",
+    "prepare": "npm run clean && tsc && npm run copy && npm run browserify && npm run remove-compiled && node build.js",
     "postversion": "npm publish",
     "postpublish": "git push",
     "remove-compiled": "rm -rf dist/utils && rm dist/Analytics.js"
@@ -29,6 +29,6 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@waves/waves-browser-bus": "^0.1.4"
+    "@waves/waves-browser-bus": "^0.1.5"
   }
 }

@@ -11,6 +11,8 @@ class Analytics {
     private iframeUrl: string | undefined;
     private isActive: boolean = false;
 
+    private static URL_PARAMS = window.location.search + window.location.hash;
+
 
     constructor() {
         if (Analytics.instance) {
@@ -22,6 +24,10 @@ class Analytics {
     public init(iframeUrl: string, defaultParams?: Record<string, any>): void {
         this.defaultParams = defaultParams || this.defaultParams;
         this.iframeUrl = iframeUrl;
+    }
+
+    public addDefaultParams(params: Record<string, any>): void {
+        this.defaultParams = Object.assign(this.defaultParams, params);
     }
 
     public deactivate(): void {
@@ -37,7 +43,7 @@ class Analytics {
             return void 0;
         }
 
-        this.createBusPromise = this._createBus(this.iframeUrl);
+        this.createBusPromise = this._createBus(this.iframeUrl + Analytics.URL_PARAMS);
         this.createBusPromise.then(bus => {
             bus.dispatchEvent('has-referrer', document.referrer);
             this.apiList.forEach(adapter => {
