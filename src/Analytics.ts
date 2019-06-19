@@ -26,6 +26,10 @@ class Analytics {
         this.iframeUrl = iframeUrl;
     }
 
+    public addDefaultParams(params: Record<string, any>): void {
+        this.defaultParams = Object.assign(this.defaultParams, params);
+    }
+
     public deactivate(): void {
         this.isActive = false;
     }
