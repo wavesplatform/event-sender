@@ -1,5 +1,5 @@
 ///<reference path="../interface.d.ts"/>
-import { Bus, WindowAdapter } from '@waves/waves-browser-bus';
+import { Bus, WindowAdapter } from '@bancoin/bancoin-browser-bus';
 
 
 class Analytics {
