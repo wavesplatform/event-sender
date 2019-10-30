@@ -23,7 +23,7 @@ WindowAdapter.createSimpleWindowAdapter().then(adapter => {
 
         const load = loadScript(data.libraryUrl)
             .then(() => {
-                runByPath(data.initializeMethod, [data.apiToken]);
+                runByPath(data.initializeMethod, [data.apiToken, data.initializeOptions]);
                 adapters.push({
                     type: data.type,
                     send(name: string, params: any): any {

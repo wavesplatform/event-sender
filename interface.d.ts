@@ -18,6 +18,7 @@ declare namespace AnalyticsTypes {
         apiToken?: string;
         libraryUrl: string;
         initializeMethod: string;
+        initializeOptions?: any;
         sendMethod: string;
         type: TTargetTypes;
     }
