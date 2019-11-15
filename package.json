@@ -29,6 +29,6 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@waves/waves-browser-bus": "^0.1.5"
+    "@waves/waves-browser-bus": "^0.2.2"
   }
 }
